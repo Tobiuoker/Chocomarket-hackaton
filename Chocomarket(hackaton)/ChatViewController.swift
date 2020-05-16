@@ -158,18 +158,18 @@ class ChatViewController: JSQMessagesViewController {
             }
         }
 
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self, weak alert] _ in
-
-            if let textField = alert?.textFields?[0], !textField.text!.isEmpty {
-
-                self?.senderDisplayName = textField.text
-
-                self?.title = "Chat: \(self!.senderDisplayName!)"
-
-                defaults.set(textField.text, forKey: "jsq_name")
-                defaults.synchronize()
-            }
-        }))
+//        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self, weak alert] _ in
+//
+//            if let textField = alert?.textFields?[0], !textField.text!.isEmpty {
+//
+//                self?.senderDisplayName = textField.text
+//
+//                self?.title = "Chat: \(self!.senderDisplayName!)"
+//
+//                defaults.set(textField.text, forKey: "jsq_name")
+//                defaults.synchronize()
+//            }
+//        }))
 
         present(alert, animated: true, completion: nil)
     }
