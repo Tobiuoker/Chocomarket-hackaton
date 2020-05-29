@@ -58,35 +58,59 @@ class ChatViewController: JSQMessagesViewController {
 //        senderId = "1234"
 //        senderDisplayName = "Khaled"
         
-        let defaults = UserDefaults.standard
-        
-        if  let id = defaults.string(forKey: "jsq_id"),
-            let name = defaults.string(forKey: "jsq_name")
-        {
-            //senderId = "567"
-            //senderDisplayName = name
-        }
-        else
-        {
-            //senderId = String(arc4random_uniform(999999))
-            //senderDisplayName = ""
-
-            defaults.set(senderId, forKey: "jsq_id")
-            defaults.synchronize()
-
-            showDisplayNameDialog()
-        }
-        
-        
+//        let defaults = UserDefaults.standard
+//        
+//        if  let id = defaults.string(forKey: "jsq_id"),
+//            let name = defaults.string(forKey: "jsq_name")
+//        {
+//            //senderId = "567"
+//            //senderDisplayName = name
+//        }
+//        else
+//        {
+//            //senderId = String(arc4random_uniform(999999))
+//            //senderDisplayName = ""
+//
+//            defaults.set(senderId, forKey: "jsq_id")
+//            defaults.synchronize()
+//
+//            showDisplayNameDialog()
+//        }
         
         
         
-        db.collection("Deliveries").document(idZakaza).getDocument { (document, error) in
-//            self.myName = document?.data()!["delivererName"] as! String
-//            self.managerName = document?.data()!["managerName"] as! String
-            self.title = "Chat: \(document?.data()!["managerName"] as! String? ?? "idonno")"
-        }
         
+        
+//        db.collection("Deliveries").document(idZakaza).getDocument { (document, error) in
+////            self.myName = document?.data()!["delivererName"] as! String
+////            self.managerName = document?.data()!["managerName"] as! String
+//            self.title = "Chat: \(document?.data()!["managerName"] as! String? ?? "idonno")"
+//        }
+        
+        
+        
+//        let qwe = databaseRoot.child("deliveries")
+//        _ = qwe.observeSingleEvent(of: .value, with: { (snapshot) in
+//            if let data = snapshot.value as? [String: NSDictionary]{
+//                for (key, value) in data {
+//                    if(value["delivererId"] == Auth.auth().currentUser?.uid){
+//                        self.title = "Chat: \(value["managerName"] as! String? ?? "idonno")"
+//                    }
+//                }
+//            }
+//        })
+        let userId = Auth.auth().currentUser?.uid as! String
+        let qwe = databaseRoot.child("deliveries")
+        _ = qwe.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let data = snapshot.value as? [String: NSDictionary]{
+                for (key, value) in data{
+                    if(value["delivererId"] as! String == userId){
+                        self.title = "Chat: \(value["managerName"] as! String? ?? "idonno")"
+                    }
+                }
+            }
+        })
+//
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showDisplayNameDialog))
         tapGesture.numberOfTapsRequired = 1
@@ -105,6 +129,7 @@ class ChatViewController: JSQMessagesViewController {
 
         _ = query.observe(.childAdded, with: { [weak self] snapshot in
 
+            
             if  let data        = snapshot.value as? [String: String],
                 let id          = data["sender_id"],
                 let name        = data["name"],
@@ -126,17 +151,26 @@ class ChatViewController: JSQMessagesViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         print("pervii")
-        db.collection("Deliveries").document(idZakaza).getDocument { (document, error) in
-            
-            self.senderId = document?.data()!["delivererId"] as! String
-            self.senderDisplayName = document?.data()!["delivererName"] as! String
-        }
-        
 //        db.collection("Deliveries").document(idZakaza).getDocument { (document, error) in
-//            self.myName = document?.data()!["delivererName"] as! String
-//            self.managerName = document?.data()!["managerName"] as! String
-//            print("ehhhhh", document?.data()!["delivererName"] as! String)
+//
+//            self.senderId = document?.data()!["delivererId"] as! String
+//            self.senderDisplayName = document?.data()!["delivererName"] as! String
 //        }
+        
+        
+        let userId = Auth.auth().currentUser?.uid as! String
+        let qwe = databaseRoot.child("deliveries")
+        _ = qwe.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let data = snapshot.value as? [String: NSDictionary]{
+                for (key, value) in data{
+                    if(value["delivererId"] as! String == userId){
+                        self.senderId = value["delivererId"] as! String
+                        self.senderDisplayName = value["delivererName"] as! String
+                    }
+                }
+            }
+        })
+        
     }
     
     @objc func showDisplayNameDialog()
@@ -228,12 +262,27 @@ class ChatViewController: JSQMessagesViewController {
         var message:[String:String] = [:]
         
         
-                db.collection("Deliveries").document(idZakaza).getDocument { (document, error) in
-                    
-                    
-                    message = ["sender_id": document?.data()!["delivererId"] as! String, "name": document?.data()!["delivererName"] as! String, "text": text]
-                    ref.setValue(message)
+//                db.collection("Deliveries").document(idZakaza).getDocument { (document, error) in
+//                    
+//                    
+//                    message = ["sender_id": document?.data()!["delivererId"] as! String, "name": document?.data()!["delivererName"] as! String, "text": text]
+//                    ref.setValue(message)
+//                }
+        
+        
+        let userId = Auth.auth().currentUser?.uid as! String
+        let qwe = databaseRoot.child("deliveries")
+        _ = qwe.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let data = snapshot.value as? [String: NSDictionary]{
+                for (key, value) in data{
+                    if(value["delivererId"] as! String == userId){
+                        message = ["sender_id": value["delivererId"] as! String, "name": value["delivererName"] as! String, "text": text]
+                        ref.setValue(message)
+                    }
                 }
+            }
+        })
+        
         
 //        let message = ["sender_id": senderId, "name": senderDisplayName, "text": text]
 

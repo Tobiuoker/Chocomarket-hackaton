@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hOh-Mg-8UG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hOh-Mg-8UG">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -182,120 +182,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4EW-fN-FbI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1304" y="1219"/>
-        </scene>
-        <!--Products-->
-        <scene sceneID="gqs-EH-V3a">
-            <objects>
-                <tableViewController id="LXd-RS-aLy" customClass="ProductsTableViewController" customModule="Chocomarket_hackaton_" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="iZ1-B8-IQC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="productCell" textLabel="uJ5-o9-e8t" detailTextLabel="9Up-Jj-0se" style="IBUITableViewCellStyleValue1" id="bYx-fR-xYv">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bYx-fR-xYv" id="H8a-9H-YP8">
-                                    <rect key="frame" x="0.0" y="0.0" width="383" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uJ5-o9-e8t">
-                                            <rect key="frame" x="20" y="12" width="33.5" height="20.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9Up-Jj-0se">
-                                            <rect key="frame" x="331" y="12" width="44" height="20.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="fKS-QM-oDe" kind="show" identifier="changeProduct" id="SJI-Sh-jJt"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="LXd-RS-aLy" id="G90-hp-PPK"/>
-                            <outlet property="delegate" destination="LXd-RS-aLy" id="QQK-zf-7EB"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Products" id="50K-1M-thB"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1Fr-xb-twV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1304" y="1869"/>
-        </scene>
-        <!--Product Manage View Controller-->
-        <scene sceneID="mTQ-nD-4Ua">
-            <objects>
-                <viewController id="fKS-QM-oDe" customClass="ProductManageViewController" customModule="Chocomarket_hackaton_" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="zri-eZ-d8d">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name of Product" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhc-pq-TaR">
-                                <rect key="frame" x="113" y="29" width="188" height="32"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="G76-vx-xtd">
-                                <rect key="frame" x="118" y="177" width="178" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Quantity" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="toW-Be-9zz">
-                                <rect key="frame" x="113" y="255" width="188" height="32"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DzN-LW-3V9">
-                                <rect key="frame" x="118" y="320" width="178" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="dhc-pq-TaR" firstAttribute="top" relation="lessThanOrEqual" secondItem="RNW-cL-zCR" secondAttribute="top" constant="29" id="7yE-vz-6DB"/>
-                            <constraint firstItem="DzN-LW-3V9" firstAttribute="leading" relation="lessThanOrEqual" secondItem="RNW-cL-zCR" secondAttribute="leading" constant="118" id="Dmh-R9-ZBo"/>
-                            <constraint firstItem="dhc-pq-TaR" firstAttribute="leading" relation="lessThanOrEqual" secondItem="RNW-cL-zCR" secondAttribute="leading" constant="113" id="MQ6-mc-X3C"/>
-                            <constraint firstItem="RNW-cL-zCR" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="DzN-LW-3V9" secondAttribute="trailing" constant="118" id="NiF-CN-A6b"/>
-                            <constraint firstItem="RNW-cL-zCR" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="G76-vx-xtd" secondAttribute="trailing" constant="118" id="OGg-FW-hc6"/>
-                            <constraint firstItem="RNW-cL-zCR" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="DzN-LW-3V9" secondAttribute="bottom" constant="459" id="VY6-bI-hzm"/>
-                            <constraint firstItem="G76-vx-xtd" firstAttribute="top" secondItem="dhc-pq-TaR" secondAttribute="bottom" constant="28" id="VdR-fG-HQ1"/>
-                            <constraint firstItem="G76-vx-xtd" firstAttribute="leading" relation="lessThanOrEqual" secondItem="RNW-cL-zCR" secondAttribute="leading" constant="118" id="jMv-8d-zcZ"/>
-                            <constraint firstItem="DzN-LW-3V9" firstAttribute="top" secondItem="toW-Be-9zz" secondAttribute="bottom" constant="33" id="kgU-0o-Vve"/>
-                            <constraint firstItem="RNW-cL-zCR" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="toW-Be-9zz" secondAttribute="trailing" constant="113" id="rmb-ST-AkG"/>
-                            <constraint firstItem="RNW-cL-zCR" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="dhc-pq-TaR" secondAttribute="trailing" constant="113" id="wAO-a9-onr"/>
-                            <constraint firstItem="toW-Be-9zz" firstAttribute="top" secondItem="G76-vx-xtd" secondAttribute="bottom" constant="44" id="xHu-4J-Rn7"/>
-                            <constraint firstItem="toW-Be-9zz" firstAttribute="leading" relation="lessThanOrEqual" secondItem="RNW-cL-zCR" secondAttribute="leading" constant="113" id="xh0-3x-8h5"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="RNW-cL-zCR"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="ObT-Dh-D2a">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="34D-w5-egF">
-                            <connections>
-                                <segue destination="rJh-wv-lPf" kind="unwind" unwindAction="unwinddFor:sender:" id="tA8-PY-Rag"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="nameProduct" destination="G76-vx-xtd" id="F2n-V8-jDH"/>
-                        <outlet property="quantityOfProduct" destination="DzN-LW-3V9" id="CK8-HU-63c"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1vi-a0-Da2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="rJh-wv-lPf" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="2191" y="1869"/>
         </scene>
         <!--Initial View Controller-->
         <scene sceneID="M4o-ae-6kj">

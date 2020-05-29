@@ -17,7 +17,7 @@ class MyDeliveriesCollectionViewController: UICollectionViewController, UICollec
         print()
     }
     var counter = 0
-
+    let databaseRoot = Database.database().reference()
     var documentIds:[String] = []
     var ref: DatabaseReference?
     var databaseHandle:DatabaseHandle?
@@ -53,59 +53,93 @@ class MyDeliveriesCollectionViewController: UICollectionViewController, UICollec
             print(counter, "counter")
             
                 ref = Database.database().reference()
-                let db = Firestore.firestore()
-                
-                db.collection("Deliveries").getDocuments { (snapshot, error) in
-                            let document = snapshot?.documents
-                //            print(type(of: ))
-                            
-                            
-                            for i in 0...(snapshot?.documents.count)!-1{
-                                let deliverer = document![i].data()["delivererName"] as! String?
-                                let id = document![i].data()["delivererId"] as! String?
-                                let inProcess = document![i].data()["inProcess"] as! String
-                                let objectId = document![i].documentID
-                                let products = document![i].data()["products"] as! Dictionary<String, [String]>
             
-                                print(id!, "eto AIDI NONVOOO")
-
-                                if(Auth.auth().currentUser != nil){
-                                        let userID : String = (Auth.auth().currentUser?.uid)!
-                                         print("Current user ID is" + userID)
-                                    self.ref = Database.database().reference()
-                                        self.ref?.child("name").child(userID).observeSingleEvent(of: .value, with: {(snapshot) in
-                                            let db = Firestore.firestore()
-                                            db.collection("users").getDocuments { (query, error) in
-                                                let document = query?.documents.first?.data()["name"]
-                                                
-                                                
-                                                print(userID,"IMYA")
-                                                print(id,"Sohr")
-                                                if(userID == id){
-                                                    print("AKKAKAAKAKAKA")
-                                                    let newDelivery = Deliveries(deliverer: deliverer, inProcess: inProcess, objectId: objectId, products: products, id: id)
-                                                DispatchQueue.main.async {
-                                                    self.deliveries.append(newDelivery)
-                                                    self.collectionView.reloadData()
-                                                }
-                                                self.documentIds.append(objectId)
-                                                }
-                                            }
-
-
-                                         })
+            let query = databaseRoot.child("deliveries")
+                        _ = query.observeSingleEvent(of: .value, with: { (snapshot) in
+                            if let data = snapshot.value as? [String: NSDictionary]{
+                                for (key, value) in data {
+            //                        print(value["products"] as! Dictionary<String, String>, "tut")
+                                    
+                                    
+                                                                let deliverer = value["delivererName"] as! String?
+                                                                let inProcess = value["inProcess"] as! String
+                                                                let id = value["delivererId"] as! String?
+                                                                let objectId = key
+                                    
+                                                                let products = value["products"] as! Dictionary<String, String>
+            //                        print(inProcess)
+                                                        let userID : String = (Auth.auth().currentUser?.uid)!
+                                    
+                                                                if(userID == id){
+                                                                    let newDelivery = Deliveries(deliverer: deliverer, inProcess: inProcess, objectId: objectId, products: products, id: id)
+                                                                DispatchQueue.main.async {
+                                                                    self.deliveries.append(newDelivery)
+                                                                    self.collectionView.reloadData()
+                                                                }
+                                                                    self.documentIds.append(objectId)
+                                                                }
+                                                            
+                                    
                                     
                                     
                                 }
-                                
-                                
-                                
-                                
                             }
-                        
-
-                            
-                        }
+                        })
+            
+            
+//                let db = Firestore.firestore()
+//
+//                db.collection("Deliveries").getDocuments { (snapshot, error) in
+//                            let document = snapshot?.documents
+//                //            print(type(of: ))
+//
+//
+//                            for i in 0...(snapshot?.documents.count)!-1{
+//                                let deliverer = document![i].data()["delivererName"] as! String?
+//                                let id = document![i].data()["delivererId"] as! String?
+//                                let inProcess = document![i].data()["inProcess"] as! String
+//                                let objectId = document![i].documentID
+//                                let products = document![i].data()["products"] as! Dictionary<String, [String]>
+//
+//                                print(id!, "eto AIDI NONVOOO")
+//
+//                                if(Auth.auth().currentUser != nil){
+//                                        let userID : String = (Auth.auth().currentUser?.uid)!
+//                                         print("Current user ID is" + userID)
+//                                    self.ref = Database.database().reference()
+//                                        self.ref?.child("name").child(userID).observeSingleEvent(of: .value, with: {(snapshot) in
+//                                            let db = Firestore.firestore()
+//                                            db.collection("users").getDocuments { (query, error) in
+//                                                let document = query?.documents.first?.data()["name"]
+//
+//
+//                                                print(userID,"IMYA")
+//                                                print(id,"Sohr")
+//                                                if(userID == id){
+//                                                    print("AKKAKAAKAKAKA")
+////                                                    let newDelivery = Deliveries(deliverer: deliverer, inProcess: inProcess, objectId: objectId, products: products, id: id)
+//                                                DispatchQueue.main.async {
+////                                                    self.deliveries.append(newDelivery)
+//                                                    self.collectionView.reloadData()
+//                                                }
+//                                                self.documentIds.append(objectId)
+//                                                }
+//                                            }
+//
+//
+//                                         })
+//
+//
+//                                }
+//
+//
+//
+//
+//                            }
+//
+//
+//
+//                        }
             
             counter+=1
         }

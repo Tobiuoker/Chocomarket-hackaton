@@ -16,7 +16,9 @@ class deliveryProductsTableViewController: UITableViewController {
     
     var id = ""
     var index:Int = 5
-    var products: Dictionary<String, [String]>?
+    var key:String?
+    let databaseRoot = Database.database().reference()
+    var products: Dictionary<String, String>?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,21 +28,56 @@ class deliveryProductsTableViewController: UITableViewController {
         
         print(id, "pihaem v eto idishku", index, "s indexom")
         let userId = Auth.auth().currentUser?.uid
-        let db = Firestore.firestore()
+        
+        let query = databaseRoot.child("users")
+        _ = query.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let data = snapshot.value as? [String: NSDictionary]{
+                for (key, value) in data {
+                    if(value["uid"] as! String == userId!){
+                        let ref = self.databaseRoot.child("deliveries")
+                        
+                        _ = ref.observeSingleEvent(of: .value, with: { (snapshot) in
+                        if let data = snapshot.value as? [String: NSDictionary]{
+                            for (key2, value2) in data {
+                                
+                                if(self.key == key2){
+                                    let ref2 = self.databaseRoot.child("deliveries/\(key2)")
+                                    
+                                    ref2.updateChildValues(["delivererId" : userId!,
+                                                                                "delivererName": value["name"] as! String,
+                                                                                "inProcess": "inProcess"
+                                                                                ])
+                                }
+                            }
+                            }
+                        })
 
-        db.collection("users").getDocuments { (snapshot, error) in
-            let document = snapshot?.documents
-            for i in 0...((snapshot?.documents.count)!-1){
-                if(document![i].data()["uid"] as! String == userId!){
-                    db.collection("Deliveries").document(self.id).updateData(["delivererId" : userId!,
-                    "delivererName": document![i].data()["name"] as! String,
-                    "inProcess": "inProcess"
-                    ])
-                    
-                    break
+//                        ref.updateChildValues(["delivererId" : userId!,
+//                                            "delivererName": value["name"] as! String,
+//                                            "inProcess": "inProcess"
+//                                            ])
+                    }
                 }
             }
-        }
+        })
+    
+        
+        
+//        let db = Firestore.firestore()
+//
+//        db.collection("users").getDocuments { (snapshot, error) in
+//            let document = snapshot?.documents
+//            for i in 0...((snapshot?.documents.count)!-1){
+//                if(document![i].data()["uid"] as! String == userId!){
+//                    db.collection("Deliveries").document(self.id).updateData(["delivererId" : userId!,
+//                    "delivererName": document![i].data()["name"] as! String,
+//                    "inProcess": "inProcess"
+//                    ])
+//
+//                    break
+//                }
+//            }
+//        }
         let alert = UIAlertController(title: "Status", message: "You had taken delivery", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
@@ -65,7 +102,7 @@ class deliveryProductsTableViewController: UITableViewController {
         let index = products!.index(products!.startIndex, offsetBy: intIndex)
 
         cell.textLabel?.text = products!.keys[index]
-        cell.detailTextLabel?.text = products![products!.keys[index]]![0]
+        cell.detailTextLabel?.text = products![products!.keys[index]]!
         return cell
     }
 ////

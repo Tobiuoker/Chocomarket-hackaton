@@ -10,7 +10,7 @@ import UIKit
 
 class myDeliveryProductsTableViewController: UITableViewController {
     
-    var products: Dictionary<String, [String]>?
+    var products: Dictionary<String, String>?
     var id = ""
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +46,7 @@ class myDeliveryProductsTableViewController: UITableViewController {
         let index = products!.index(products!.startIndex, offsetBy: intIndex)
 
         cell.textLabel?.text = products!.keys[index]
-        cell.detailTextLabel?.text = products![products!.keys[index]]![0]
+        cell.detailTextLabel?.text = products![products!.keys[index]]!
         return cell
     }
     

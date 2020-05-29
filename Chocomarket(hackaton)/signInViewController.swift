@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import Firebase
+import  FirebaseDatabase
 
 class signInViewController: UIViewController {
 
@@ -24,6 +25,10 @@ class signInViewController: UIViewController {
     @IBOutlet weak var emailText: UITextField!
     @IBOutlet weak var passwordText: UITextField!
     @IBOutlet weak var delivererOrNot: UISwitch!
+    
+    let db = Firestore.firestore()
+    let databaseRoot = Database.database().reference()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         submitButton.layer.cornerRadius = 20
@@ -88,13 +93,21 @@ class signInViewController: UIViewController {
             }
             
             Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-                let db = Firestore.firestore()
-                db.collection("users").addDocument(data: ["name" : firstName, "phone": phone, "email": email, "password": password, "uid": result!.user.uid, "position": position]) { (error) in
-                    if error != nil {
-                        // Show error message
-                        self.errorLabel.text = "Error saving user data"
-                    }
-                }
+//                let db = Firestore.firestore()
+//                db.collection("users").addDocument(data: ["name" : firstName, "phone": phone, "email": email, "password": password, "uid": result!.user.uid, "position": position]) { (error) in
+//                    if error != nil {
+//                        // Show error message
+//                        self.errorLabel.text = "Error saving user data"
+//                    }
+//                }
+                
+                let ref = self.databaseRoot.child("users").childByAutoId()
+                
+                var message:[String:String] = [:]
+                
+                message = ["name" : firstName, "phone": phone, "email": email, "password": password, "uid": result!.user.uid, "position": position]
+                
+                ref.setValue(message)
                 self.errorLabel.text = "Success"
                 self.errorLabel.textColor = UIColor.green
             }

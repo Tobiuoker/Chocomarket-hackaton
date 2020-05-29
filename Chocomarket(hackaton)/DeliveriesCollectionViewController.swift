@@ -15,9 +15,10 @@ class DeliveriesCollectionViewController: UICollectionViewController, UICollecti
     
     var documentIds:[String] = []
     var indexOfProduct = 35
+    var key:String?
     var ref: DatabaseReference?
     var databaseHandle:DatabaseHandle?
-    
+    let databaseRoot = Database.database().reference()
     var deliveries: [Deliveries] = []
     
     func MoreButtonTapped(sender: DeliveriesCollectionViewCell) {
@@ -53,6 +54,7 @@ class DeliveriesCollectionViewController: UICollectionViewController, UICollecti
             let item = deliveries[indexOfProduct]
             destin?.id = documentIds[indexOfProduct]
             destin?.products = item.products
+            destin?.key = key
         }
     }
     
@@ -127,38 +129,71 @@ navigationController?.navigationBar.prefersLargeTitles = true
             }
             
             ref = Database.database().reference()
-                    let db = Firestore.firestore()
-                    db.collection("Deliveries").getDocuments { (snapshot, error) in
-                        let document = snapshot?.documents
-            //            print(type(of: ))
+            
+            let query = databaseRoot.child("deliveries")
+            _ = query.observeSingleEvent(of: .value, with: { (snapshot) in
+                if let data = snapshot.value as? [String: NSDictionary]{
+                    for (key, value) in data {
+//                        print(value["products"] as! Dictionary<String, String>, "tut")
                         
                         
-                        for i in 0...(snapshot?.documents.count)!-1{
-                            let deliverer = document![i].data()["delivererName"] as! String?
-                            let inProcess = document![i].data()["inProcess"] as! String
-                            let id = document![i].data()["delivererId"] as! String?
-                            let objectId = document![i].documentID
-//                            print(objectId, "objectif")
-                            let products = document![i].data()["products"] as! Dictionary<String, [String]>
-                            
-            //                print(type(of: inProcess), "process")
-            //                print(type(of: deliverer), "deliver")
-            //                print(type(of: objectId), "id")
-            //                print(type(of: products), "produ")if
-                            
-                            if(inProcess != "inProcess"){
-                                let newDelivery = Deliveries(deliverer: deliverer, inProcess: inProcess, objectId: objectId, products: products, id: id)
-                            DispatchQueue.main.async {
-                                self.deliveries.append(newDelivery)
-                                self.collectionView.reloadData()
-                            }
-                                self.documentIds.append(objectId)
-                            }
-                        }
-                    
+                                                    let deliverer = value["delivererName"] as! String?
+                                                    let inProcess = value["inProcess"] as! String
+                                                    let id = value["delivererId"] as! String?
+                                                    let objectId = key
+                        
+                                                    let products = value["products"] as! Dictionary<String, String>
+//                        print(inProcess)
 
                         
+                                                    if(inProcess != "inProcess"){
+                                                        let newDelivery = Deliveries(deliverer: deliverer, inProcess: inProcess, objectId: objectId, products: products, id: id)
+                                                    DispatchQueue.main.async {
+                                                        self.deliveries.append(newDelivery)
+                                                        self.collectionView.reloadData()
+                                                    }
+                                                        self.documentIds.append(objectId)
+                                                        self.key = key
+                                                    }
+                                                
+                        
+                        
+                        
                     }
+                }
+            })
+            
+//                    let db = Firestore.firestore()
+//                    db.collection("Deliveries").getDocuments { (snapshot, error) in
+//                        let document = snapshot?.documents
+//
+//
+//                        for i in 0...(snapshot?.documents.count)!-1{
+//                            let deliverer = document![i].data()["delivererName"] as! String?
+//                            let inProcess = document![i].data()["inProcess"] as! String
+//                            let id = document![i].data()["delivererId"] as! String?
+//                            let objectId = document![i].documentID
+////                            print(objectId, "objectif")
+//                            let products = document![i].data()["products"] as! Dictionary<String, [String]>
+//
+//            //                print(type(of: inProcess), "process")
+//            //                print(type(of: deliverer), "deliver")
+//            //                print(type(of: objectId), "id")
+//            //                print(type(of: products), "produ")if
+//
+//                            if(inProcess != "inProcess"){
+//                                let newDelivery = Deliveries(deliverer: deliverer, inProcess: inProcess, objectId: objectId, products: products, id: id)
+//                            DispatchQueue.main.async {
+//                                self.deliveries.append(newDelivery)
+//                                self.collectionView.reloadData()
+//                            }
+//                                self.documentIds.append(objectId)
+//                            }
+//                        }
+//
+//
+//
+//                    }
     }
         
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
