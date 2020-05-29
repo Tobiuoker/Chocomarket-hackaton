@@ -36,69 +36,7 @@ class ChatViewController: JSQMessagesViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.view.backgroundColor = UIColor(rgb: 0xF8F7FE)
-        //document![i].documentID
         
-//        db.collection("Deliveries").getDocuments { (snapshot, error) in
-//            let document = snapshot?.documents
-//            for i in 0...((snapshot?.documents.count)!-1){
-//                if(document![i].data()["uid"] as! String == userId!){
-//                    db.collection("Deliveries").document(self.id).updateData(["delivererId" : userId!,
-//                    "delivererName": document![i].data()["name"] as! String,
-//                    "inProcess": "inProcess"
-//                    ])
-//
-//                    break
-//                }
-//            }
-//        }
-        
-        
-        
-//        senderId = "1234"
-//        senderDisplayName = "Khaled"
-        
-//        let defaults = UserDefaults.standard
-//        
-//        if  let id = defaults.string(forKey: "jsq_id"),
-//            let name = defaults.string(forKey: "jsq_name")
-//        {
-//            //senderId = "567"
-//            //senderDisplayName = name
-//        }
-//        else
-//        {
-//            //senderId = String(arc4random_uniform(999999))
-//            //senderDisplayName = ""
-//
-//            defaults.set(senderId, forKey: "jsq_id")
-//            defaults.synchronize()
-//
-//            showDisplayNameDialog()
-//        }
-        
-        
-        
-        
-        
-//        db.collection("Deliveries").document(idZakaza).getDocument { (document, error) in
-////            self.myName = document?.data()!["delivererName"] as! String
-////            self.managerName = document?.data()!["managerName"] as! String
-//            self.title = "Chat: \(document?.data()!["managerName"] as! String? ?? "idonno")"
-//        }
-        
-        
-        
-//        let qwe = databaseRoot.child("deliveries")
-//        _ = qwe.observeSingleEvent(of: .value, with: { (snapshot) in
-//            if let data = snapshot.value as? [String: NSDictionary]{
-//                for (key, value) in data {
-//                    if(value["delivererId"] == Auth.auth().currentUser?.uid){
-//                        self.title = "Chat: \(value["managerName"] as! String? ?? "idonno")"
-//                    }
-//                }
-//            }
-//        })
         let userId = Auth.auth().currentUser?.uid as! String
         let qwe = databaseRoot.child("deliveries")
         _ = qwe.observeSingleEvent(of: .value, with: { (snapshot) in

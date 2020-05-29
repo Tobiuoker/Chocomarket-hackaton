@@ -112,30 +112,46 @@
 		9552B7B7245C5E57003C436E /* Chocomarket(hackaton) */ = {
 			isa = PBXGroup;
 			children = (
+				956D086324811862001E64AA /* controllers */,
 				95D6B086246060F700993921 /* Constants.swift */,
-				95D6B0832460517300993921 /* ChatViewController.swift */,
-				950B2F63245F417D004A5350 /* myDeliveryProductsTableViewController.swift */,
-				950B2F61245F202D004A5350 /* deliveryProductsTableViewController.swift */,
-				950B2F5F245F129A004A5350 /* MyDeliveriesCollectionViewController.swift */,
-				95BD62C1245EEE1A0086F131 /* Products.swift */,
-				95BD62C0245EED810086F131 /* Deliveries.swift */,
+				956D08642481188A001E64AA /* models */,
 				95BD62BE245EC5720086F131 /* GoogleService-Info.plist */,
-				9552B7D4245C8604003C436E /* ProductManageViewController.swift */,
-				9552B7D0245C817A003C436E /* ProductsTableViewController.swift */,
-				9552B7CC245C65E4003C436E /* DeliveriesCollectionViewController.swift */,
 				9552B7CE245C6626003C436E /* DeliveriesCollectionViewCell.swift */,
 				9552B7B8245C5E57003C436E /* AppDelegate.swift */,
-				959B7CD9245DDC4000664D6B /* signInViewController.swift */,
 				9552B7BA245C5E57003C436E /* SceneDelegate.swift */,
-				959B7CDD245DF4A900664D6B /* logInViewController.swift */,
 				959B7CDF245E02BA00664D6B /* FirebaseAuthManager.swift */,
 				9552B7BE245C5E57003C436E /* Main.storyboard */,
-				957E26BD245DCA99009A1819 /* InitialViewController.swift */,
 				9552B7C1245C5E5C003C436E /* Assets.xcassets */,
 				9552B7C3245C5E5C003C436E /* LaunchScreen.storyboard */,
 				9552B7C6245C5E5C003C436E /* Info.plist */,
 			);
 			path = "Chocomarket(hackaton)";
+			sourceTree = "<group>";
+		};
+		956D086324811862001E64AA /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				95D6B0832460517300993921 /* ChatViewController.swift */,
+				950B2F63245F417D004A5350 /* myDeliveryProductsTableViewController.swift */,
+				950B2F61245F202D004A5350 /* deliveryProductsTableViewController.swift */,
+				950B2F5F245F129A004A5350 /* MyDeliveriesCollectionViewController.swift */,
+				9552B7D4245C8604003C436E /* ProductManageViewController.swift */,
+				9552B7D0245C817A003C436E /* ProductsTableViewController.swift */,
+				9552B7CC245C65E4003C436E /* DeliveriesCollectionViewController.swift */,
+				959B7CD9245DDC4000664D6B /* signInViewController.swift */,
+				959B7CDD245DF4A900664D6B /* logInViewController.swift */,
+				957E26BD245DCA99009A1819 /* InitialViewController.swift */,
+			);
+			path = controllers;
+			sourceTree = "<group>";
+		};
+		956D08642481188A001E64AA /* models */ = {
+			isa = PBXGroup;
+			children = (
+				95BD62C1245EEE1A0086F131 /* Products.swift */,
+				95BD62C0245EED810086F131 /* Deliveries.swift */,
+			);
+			path = models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
