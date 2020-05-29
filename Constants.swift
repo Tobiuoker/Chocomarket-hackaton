@@ -14,6 +14,7 @@ struct Constants
 {
     struct refs
     {
+        
         //static let databaseRoot = Database.database().reference()
        // static let databaseChats = databaseRoot.child("chats/\(Auth.auth().currentUser?.uid as! String)")
     }
